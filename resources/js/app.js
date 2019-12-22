@@ -12,12 +12,12 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 const App = ()=>{
+    console.log('drop test')
     return(
         <div>
             hellow world laravel in react

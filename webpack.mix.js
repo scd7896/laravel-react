@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-
+const uglify = require('uglifyjs-webpack-plugin')
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,5 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.options({
+   uglify: {
+     compress: false,
+   }
+ })
 mix.react('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+
+mix.react('resources/js/pages/test', 'public/js')
+    .sass('resources/sass/test.scss', 'public/css');
