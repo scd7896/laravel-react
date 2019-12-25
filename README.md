@@ -22,3 +22,20 @@ class Item extends Eloquent {
 }
 
 //회사에서 테스트해보자
+
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+
+class User extends Eloquent {
+
+    public function books()
+    {
+        return $this->embedsMany('Book');
+    }
+
+}
+You can access the embedded models through the dynamic property:
+
+$books = User::first()->books;
+The inverse relation is automagically available, you don't need to define this reverse relation.
+
+$user = $book->user;
