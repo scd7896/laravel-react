@@ -33,15 +33,11 @@ Route::get('auth/login', function(){
     return redirect('protected');
 });
 
-Route::get('protected', function(){
+Route::get('protected', ['middleware'=>'auth',function(){
     dump(session()->all());
 
-    if(! auth()->check()){
-        return '누구세요?';
-    }
-
     return '어서 오세요' .auth()->user()->name;
-});
+}]);
 
 Route::get('auth/logout', function(){
     auth()->logout();
