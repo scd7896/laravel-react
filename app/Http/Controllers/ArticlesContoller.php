@@ -14,7 +14,9 @@ class ArticlesContoller extends Controller
     public function index()
     {
         //
-        return __METHOD__ . '은 아티클 컬렉션을 조회함';
+        $articles = \App\Article::with('user')->get();
+        return view('articles.index', compact('articles'));
+        
     }
 
     /**
