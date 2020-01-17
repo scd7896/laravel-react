@@ -1,41 +1,22 @@
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+# React in Laravel
+    라라벨은 php 웹 프레임 워크로 php라는 언어를 쓰면서 정말 갖가지 기능을 제공해준다.  
+    그 중에서는 자동으로 react 를 간단한 명령어로 사용 할 수 있게 해주는데, 어떻게 보면 반 강제적으로 멀티페이지 어플리케이션을 구성할 수가 있게 되버린다.  
+    하지만 이 멀티페이지 어플리케이션 방식은 우리가 흔히 아는 방식이 아니고, 한 프레임워크에서 여러개의 리액트 싱글페이지가 이곳저곳 만들어지게 되는 현상이 나타난다.  
+    이로 인한 문제는 뒤로가기에 대해 어떤 페이지보다 가장 안좋은 경험을 유저에게 선사해야한 다는 점이다.  
 
-class User extends Eloquent {
+## React + Laravel-web route
+    위에서 설명한 현상이 나타나는 이유는 리액트로 상태를 바꾸면서 화면을 뿌리게 되면서 history에 페이지가 움직인 경우를 남길 수가 없기 때문에 현재 싱글페이지에 접근을 요청한 페이지로 이동하게 된다.  
+    이런 방식은 인피니티 스크롤링 방식의 게시판은 큰 문제가 되지 않을 수 있지만, 페이지 방식의 게시판일 경우 이는 매우 치명적인 단점으로 다가오게 될 것이다.  
+    작게 예를 들면 6페이지에서 게시물을 보고 뒤로가기를 하면 자동으로 1페이지로 가서 다시 검색을 해야한다는 점이 있다는 것이다.  
+    
+## React-Route + Laravel-web route
+    이런 문제는 과거에 SPA가 발전해오는 과정에서 늘 있던 문제였고, 비록 SPA지만 뒤로가기가 하고 싶어 라는 고민을 많은 개발자들이 했었다.  
+    그래서 React-Route 계열의 여러가지 라이브러리가 나왔고, 현재는 같은 SPA 내부에서라면 뒤로가기는 아주 편안하게 사용 할 수 있다.  
+    다만 Laravel은 여러 각 SPA들의 집합을 시켜놓기 때문에 그렇게 편하게 할 수 있지는 않다.  
+    그렇지만 딱히 절충안이 없기 때문에 이 두가지를 잘 짬뽕 시켜서 멀티페이지 방식으로 뒤로가기를 넘나드는 방식을 연구해야한다.  
 
-    public function items()
-    {
-        return $this->hasMany('Item'); // 유저가 많은 아이템을 가지고 있음
-    }
-
-}
-
-
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
-class Item extends Eloquent {
-
-    public function user()
-    {
-        return $this->belongsTo('User'); // 아이템은 하나의 유저만을 가지고 있음
-    }
-
-}
-
-//회사에서 테스트해보자
-
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
-class User extends Eloquent {
-
-    public function books()
-    {
-        return $this->embedsMany('Book');
-    }
-
-}
-You can access the embedded models through the dynamic property:
-
-$books = User::first()->books;
-The inverse relation is automagically available, you don't need to define this reverse relation.
-
-$user = $book->user;
+## 방법
+    react-router-dom 에서 발생 가능한 큰 가닥의 모든 경우의 수를 web.php에 때려 박고 하나의 view를 부르는 것이 그 방법이다.  
+    같은 spa로 연결 되어있는 내부를 움직일 때는 react-route의 Link로 뛰어 넘어들고, 다른페이지를 이동할때는 <a> 태그를 이용해서 뛰어 넘나들어야한다.  
+    이 두가지 방식을 비교하는 가장 쉬운 경우는, 모든 페이지를 전체리로드하느냐 그렇지 않느냐의 차이이다.
+    이런 방식이 무식할 수 있지만, 가장 유저 친화적인 페이지를 만들면서, 또한 뒤로가기도 무난하게 사용 할 수 있게 된다는 장점이 있다.  
