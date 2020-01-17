@@ -21,3 +21,4 @@ mix.react('resources/js/app.js', 'public/js')
 
 mix.react('resources/js/pages/test', 'public/js')
     .sass('resources/sass/test.scss', 'public/css');
+
