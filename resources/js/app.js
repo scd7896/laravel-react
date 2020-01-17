@@ -15,16 +15,22 @@ require('./bootstrap');
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
+import Texts from './pages/root/Texts'
+import Second from './pages/root/Second'
+import store from './StoreWrapper'
 const App = ()=>{
-    console.log('drop test')
     return(
-        <div>
-            hellow world laravel in react
-        </div>
+        
+        <Router>
+            <Route exast path="/second/:inja" component = {Second} />
+            <Route exast path="/" component = {Texts} />
+        </Router>    
     )
 }
 
 if(document.getElementById('root')){
-    ReactDOM.render(<App />, document.getElementById('root'))
+    ReactDOM.render(<Provider store = {store}><App /></Provider>, document.getElementById('root'))
 }
