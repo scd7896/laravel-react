@@ -1,10 +1,11 @@
 import React from 'react'
-
-const TestComponent = ()=>{
+import {Link} from 'react-router-dom'
+const TestComponent = ({match})=>{
     return(
         <div>
-            TestComponent
-            <button>hello</button>
+            <Link to = "/test">루트로감</Link>
+            <a href = "/">아예 첫페이지</a>
+            <p>{match.params.name}</p>
         </div>
     )
 }

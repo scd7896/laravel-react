@@ -22,7 +22,12 @@ Route::resource('articles', 'ArticlesContoller');
 Route::get('/test', function(){
     return view('test/hello');
 });
-
+Route::get('/test/start/', function(){
+    return view('test/hello');
+});
+Route::get('/test/start/{name}', function(){
+    return view('test/hello');
+});
 Route::get('auth/login', function(){
     $credentials = [
         'email' => 'scd1212@naver.com',
